@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Temo Chat - Aplicación de chat en tiempo real con mensajes privados">
+  <title>Temo Chat | Chat en Tiempo Real</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ========== PANTALLA DE LOGIN ========== -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="login-card">
+      <div class="login-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logoGrad" x1="0" y1="0" x2="48" y2="48">
+                <stop offset="0%" stop-color="#7c3aed"/>
+                <stop offset="100%" stop-color="#06b6d4"/>
+              </linearGradient>
+            </defs>
+            <rect x="4" y="8" width="40" height="28" rx="6" fill="url(#logoGrad)" opacity="0.9"/>
+            <circle cx="16" cy="22" r="3" fill="white" opacity="0.9"/>
+            <circle cx="24" cy="22" r="3" fill="white" opacity="0.9"/>
+            <circle cx="32" cy="22" r="3" fill="white" opacity="0.9"/>
+            <path d="M14 36 L20 30 H28 L34 36" fill="url(#logoGrad)" opacity="0.7"/>
+          </svg>
+        </div>
+        <h1 class="login-title">Temo Chat</h1>
+        <p class="login-subtitle">Conecta en tiempo real</p>
+      </div>
+
+      <div class="login-form">
+        <div class="input-group">
+          <label for="username-input">Tu nombre de usuario</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input type="text" id="username-input" placeholder="Escribe tu nombre..." maxlength="20" autocomplete="off" autofocus>
+          </div>
+          <p id="login-error" class="login-error" style="display:none;"></p>
+        </div>
+        <button id="login-btn" class="btn-primary" disabled>
+          <span>Unirse al Chat</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="login-features">
+        <div class="feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span>Chat grupal</span>
+        </div>
+        <div class="feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span>Mensajes privados</span>
+        </div>
+        <div class="feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span>Tiempo real</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PANTALLA DE CHAT ========== -->
+  <div id="chat-screen" class="chat-screen" style="display:none;">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="sideLogoGrad" x1="0" y1="0" x2="32" y2="32">
+                <stop offset="0%" stop-color="#7c3aed"/>
+                <stop offset="100%" stop-color="#06b6d4"/>
+              </linearGradient>
+            </defs>
+            <rect x="2" y="5" width="28" height="19" rx="4" fill="url(#sideLogoGrad)" opacity="0.9"/>
+            <circle cx="10" cy="14.5" r="2" fill="white" opacity="0.85"/>
+            <circle cx="16" cy="14.5" r="2" fill="white" opacity="0.85"/>
+            <circle cx="22" cy="14.5" r="2" fill="white" opacity="0.85"/>
+            <path d="M9 24 L13 20 H19 L23 24" fill="url(#sideLogoGrad)" opacity="0.6"/>
+          </svg>
+          <span>Temo Chat</span>
+        </div>
+        <button id="sidebar-toggle-close" class="sidebar-toggle-btn" title="Cerrar panel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Canal general -->
+      <div class="sidebar-section">
+        <h3 class="sidebar-section-title">Canal</h3>
+        <button id="channel-general" class="channel-item active" data-target="general">
+          <span class="channel-hash">#</span>
+          <span class="channel-name">General</span>
+          <span id="general-badge" class="unread-badge" style="display:none;">0</span>
+        </button>
+      </div>
+
+      <!-- Usuarios conectados -->
+      <div class="sidebar-section">
+        <h3 class="sidebar-section-title">
+          Usuarios en línea
+          <span id="online-count" class="online-count">0</span>
+        </h3>
+        <ul id="users-list" class="users-list">
+          <!-- Se llena dinámicamente -->
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Área principal -->
+    <main class="chat-main">
+      <!-- Top bar -->
+      <header class="chat-header">
+        <div class="chat-header-left">
+          <button id="sidebar-toggle-open" class="sidebar-toggle-btn mobile-only" title="Abrir panel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+          <div id="chat-header-info" class="chat-header-info">
+            <h2 id="chat-channel-name"># General</h2>
+            <p id="chat-channel-desc" class="chat-channel-desc">Todos los usuarios</p>
+          </div>
+        </div>
+        <div class="chat-header-right">
+          <div id="my-profile" class="my-profile">
+            <div id="my-avatar" class="user-avatar small"></div>
+            <span id="my-username" class="my-username"></span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Mensajes -->
+      <div id="messages-container" class="messages-container">
+        <div id="messages-list" class="messages-list">
+          <div class="welcome-message">
+            <div class="welcome-icon">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="welcomeGrad" x1="0" y1="0" x2="64" y2="64">
+                    <stop offset="0%" stop-color="#7c3aed"/>
+                    <stop offset="100%" stop-color="#06b6d4"/>
+                  </linearGradient>
+                </defs>
+                <rect x="6" y="12" width="52" height="34" rx="8" fill="url(#welcomeGrad)" opacity="0.15"/>
+                <rect x="6" y="12" width="52" height="34" rx="8" stroke="url(#welcomeGrad)" stroke-width="2" fill="none"/>
+                <circle cx="22" cy="29" r="4" fill="url(#welcomeGrad)" opacity="0.6"/>
+                <circle cx="32" cy="29" r="4" fill="url(#welcomeGrad)" opacity="0.6"/>
+                <circle cx="42" cy="29" r="4" fill="url(#welcomeGrad)" opacity="0.6"/>
+                <path d="M18 46 L26 38 H38 L46 46" fill="url(#welcomeGrad)" opacity="0.3"/>
+              </svg>
+            </div>
+            <h3>Bienvenido al chat</h3>
+            <p>Envía mensajes a todos en <strong>#General</strong> o haz clic en un usuario para enviar un mensaje privado.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typing indicator -->
+      <div id="typing-indicator" class="typing-indicator" style="display:none;">
+        <div class="typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span id="typing-text" class="typing-text"></span>
+      </div>
+
+      <!-- Input -->
+      <div class="message-input-area">
+        <div class="input-bar">
+          <div id="private-tag" class="private-tag" style="display:none;">
+            <span id="private-tag-name"></span>
+            <button id="cancel-private" class="cancel-private" title="Cancelar mensaje privado">×</button>
+          </div>
+          <textarea id="message-input" class="message-input" placeholder="Escribe un mensaje..." rows="1" maxlength="1000"></textarea>
+          <button id="send-btn" class="send-btn" disabled title="Enviar mensaje">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Sonidos -->
+  <audio id="sound-join" preload="auto">
+    <source src="data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAAABmYWN0BAAAAAAAAABkYXRhAAAAAA==" type="audio/wav">
+  </audio>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
